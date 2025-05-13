@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LOGO_WHITE from "../../assets/img/logo/logo1.jpg";
+import useSocialStore from "../../store/useSocialStore";
 
 export const FooterThree = () => {
+
+    const { socials, loading, error, fetchSocials } = useSocialStore();
+  
+      useEffect(() => {
+        fetchSocials();
+      }, [fetchSocials]);
   return (
     <footer>
       <div className="td-footer-area td-black-bg-2 pt-120">
