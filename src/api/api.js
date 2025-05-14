@@ -16,3 +16,8 @@ export const SocialApi = {
     getAllSocials: () => axiosInstance.get("/social/get-social"),
   };
 
+ 
+export const OrganizationApi = {
+    getAllOrganizationDetails: () => axiosInstance.get("/organization/get-details"),
+  };
+

@@ -2,10 +2,17 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import footerBg from "../../assets/img/footer/bg.jpg";
 import useSocialStore from "../../store/useSocialStore";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 export const FooterFive = () => {
-
   const { socials, loading, error, fetchSocials } = useSocialStore();
+
+  const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
 
   // Format platform name with first letter capitalized
   const formatPlatformName = (platform) => {
@@ -15,7 +22,25 @@ export const FooterFive = () => {
 
   useEffect(() => {
     fetchSocials();
-  }, [fetchSocials]);
+    fetchOrganizationDetails();
+  }, [fetchSocials, fetchOrganizationDetails]);
+
+  // Get organization contact details
+  const email = organizationDetails?.email || "info@therehapie.com";
+  const phone = organizationDetails?.phone || "+971 50 136 1586";
+  const address = organizationDetails?.address
+   || {
+    line1: "DAFZ Head Office",
+    line2: "Building 9W, 1st Floor",
+    line3: "Dubai Airport Free Zone",
+    line4: "Dubai, United Arab Emirates"
+  };
+
+  // copyright Data
+  const companyName = " TL TECHNOLOGIES PRIVATE LIMITED";
+  const companyWebsite = "https://www.tltechnologies.net/";
+  // const currentYear = new Date().getFullYear();
+  const currentYear = "2025"
 
   return (
     <footer>
@@ -31,53 +56,41 @@ export const FooterFive = () => {
                   <div className="td-footer-5-widget-content">
                     <ul>
                       <li>
-                        <a href="mailto:info@therehapie.com">
-                          info@therehapie.com
+                        <a href={`mailto:${email}`}>
+                          {email}
                         </a>
                       </li>
                       <li className="mb-20">
-                        <a href="tel:+971501361586"> +971 50 136 1586</a>
+                        <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
                       </li>
-                      <li>
-                        <a
-                          // href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z"
-                          target="_blank"
-                          className="td-footer-3-link"
-                        >
-
-                          DAFZ Head Office
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          // href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z"
-                          target="_blank"
-                          className="td-footer-3-link"
-                        >
-                          Building 9W, 1st Floor
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          // href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z"
-                          target="_blank"
-                          className="td-footer-3-link"
-                        >
-                          Dubai Airport Free Zone
-
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          // href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z"
-                          target="_blank"
-                          className="td-footer-3-link"
-                        >
-
-                          Dubai, United Arab Emirates
-
-                        </a>
-                      </li>
+                      {orgLoading ? (
+                        <li>Loading address information...</li>
+                      ) : orgError ? (
+                        <li>Error loading address information</li>
+                      ) : (
+                        <>
+                          <li>
+                            <a target="_blank" className="td-footer-3-link">
+                              {address.line1 }
+                            </a>
+                          </li>
+                          <li>
+                            <a target="_blank" className="td-footer-3-link">
+                              {address.line2 }
+                            </a>
+                          </li>
+                          <li>
+                            <a target="_blank" className="td-footer-3-link">
+                              {address.line3 }
+                            </a>
+                          </li>
+                          <li>
+                            <a target="_blank" className="td-footer-3-link">
+                              {address.line4 }
+                            </a>
+                          </li>
+                        </>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -91,7 +104,6 @@ export const FooterFive = () => {
                       <li>
                         <Link to="/about">About</Link>
                       </li>
-
                       <li>
                         <Link to="/contact">Contact Us</Link>
                       </li>
@@ -108,16 +120,12 @@ export const FooterFive = () => {
                   </div>
                 </div>
               </div>
+              
               <div className="col-lg-2 col-md-4 col-sm-6">
                 <div className="td-footer-5-widget mb-45 ml-50">
                   <h2 className="td-footer-5-widget-title mb-45">Link Pages</h2>
                   <div className="td-footer-5-widget-content td-footer-5-widget-content-link">
                     <ul>
-                      {/* <li>
-                        <a href="#">Careers</a>
-                      </li> */}
-
-
                       <li>
                         <a href="/terms">Terms & Conditions</a>
                       </li>
@@ -134,6 +142,7 @@ export const FooterFive = () => {
                   </div>
                 </div>
               </div>
+              
               <div className="col-lg-2 col-md-4 col-sm-6">
                 <div className="td-footer-5-widget mb-45 ml-65">
                   <h2 className="td-footer-5-widget-title mb-45">Follow Us</h2>
@@ -166,6 +175,7 @@ export const FooterFive = () => {
             </div>
           </div>
         </div>
+        
         <div
           className="td-footer-5-bottom bg-position"
           style={{ backgroundImage: `url(${footerBg})` }}
@@ -175,16 +185,17 @@ export const FooterFive = () => {
               <div className="col-12">
                 <div className="td-footer-5-bottom-content text-center">
                   <p>
-                    © 2025 <a
-                      href="https://www.tltechnologies.net/"
+                    © {currentYear}{" "}
+                    <a
+                      href={companyWebsite}
                       style={{ color: "red" }}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      TL TECHNOLOGIES PRIVATE LIMITED
-                    </a> All rights reserved.
+                    {companyName}
+                    </a>{" "}
+                    All rights reserved.
                   </p>
-
                 </div>
               </div>
             </div>
