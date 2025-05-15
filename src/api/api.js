@@ -21,3 +21,7 @@ export const OrganizationApi = {
     getAllOrganizationDetails: () => axiosInstance.get("/organization/get-details"),
   };
 
+
+export const faqsApi = {
+    getAllfaqs: () => axiosInstance.get("/faqs/get-faqs"),
+  };
