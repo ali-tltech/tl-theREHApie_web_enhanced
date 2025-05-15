@@ -1,13 +1,12 @@
 import axiosInstance from "../axios/axiosInstance"
 
 export const newsLetter = async(email)=>{
-    const response = await axiosInstance.post('/newsletter',{email:email})
-    console.log(response)
+    const response = await axiosInstance.post('/newsletter/subscribe',{email:email})
     return response
 }
 
 export const contact = async(contactData)=>{
-    const response = await axiosInstance.post('/contact',contactData)
+    const response = await axiosInstance.post('/enquiries/create-enquiry',contactData)
     return response
 }
 
@@ -25,3 +24,4 @@ export const OrganizationApi = {
 export const faqsApi = {
     getAllfaqs: () => axiosInstance.get("/faqs/get-faqs"),
   };
+
