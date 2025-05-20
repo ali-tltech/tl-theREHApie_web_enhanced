@@ -10,7 +10,14 @@ export const contact = async(contactData)=>{
     return response
 }
 
-
+export const blog =async()=>{
+  const response = await axiosInstance.get("/blog/get-all-blogs")  
+  return response
+}
+export const blogById =async(id)=>{  
+  const response = await axiosInstance.get(`/blog/get-blog/${id}`)  
+  return response
+}
 export const SocialApi = {
     getAllSocials: () => axiosInstance.get("/social/get-social"),
   };

@@ -9,6 +9,7 @@ import blogImage4 from "../../assets/img/blog/blogsidebar/blog-4.jpg";
 import blogImage5 from "../../assets/img/blog/blogsidebar/blog-5.jpg";
 import userImage1 from "../../assets/img/blog/blogsidebar/logo.png";
 import HelmetReuse from "../../components/seo/HelmetComponent";
+import { blog } from "../../api/api";
 
 export const Blog = () => {
   const blogs = [
@@ -170,11 +171,12 @@ export const Blog = () => {
 
   const blogsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(blogs.length / blogsPerPage);
+  const [blogData,setBlogData]=useState([])
+  const totalPages = Math.ceil(blogData.length / blogsPerPage);
 
   const startIndex = (currentPage - 1) * blogsPerPage;
   const endIndex = startIndex + blogsPerPage;
-  const paginatedBlogs = blogs.slice(startIndex, endIndex);
+  const paginatedBlogs = blogData.slice(startIndex, endIndex);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -186,6 +188,20 @@ export const Blog = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
+
+  useEffect(()=>{
+   async function fectchBlog(){
+      try {
+        const response = await blog()
+        setBlogData(response.data.data)
+        console.log(response.data.data,"l");
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+    fectchBlog()
+  },[])
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
