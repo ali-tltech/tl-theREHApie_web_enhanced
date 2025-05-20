@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import { OrganizationApi } from '../api/api';
 
-// Create a Zustand store for organization details
+
 const useOrganizationStore = create((set) => ({
   // State
-  organizationDetails: null, // Changed from [] to null since it's an object, not an array
+  organizationDetails: null,
   loading: false,
   error: null,
 
@@ -13,8 +13,6 @@ const useOrganizationStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const response = await OrganizationApi.getAllOrganizationDetails();
-      console.log(response,"orggg res");
-      // Store the entire object directly, no need to use response.data.data || []
       set({ 
         organizationDetails: response.data.data || null, 
         loading: false 

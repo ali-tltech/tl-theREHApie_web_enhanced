@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { SocialApi } from '../api/api';
 
-// Create a Zustand store for social media links
 const useSocialStore = create((set) => ({
   // State
   socials: [],

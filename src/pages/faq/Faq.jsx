@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Layout } from "../../layouts/Layout";
 import { Link } from "react-router-dom";
 import HelmetReuse from "../../components/seo/HelmetComponent";
-import useFaqsStore from "../../store/useFaqsStore"; // Update path as needed
+import useFaqsStore from "../../store/useFaqsStore";
 
 export const Faq = () => {
-  // Get faqs and fetchFaqs function from the store
+
   const { faqs, loading, error, fetchFaqs } = useFaqsStore();
 console.log(faqs);
-  // Fetch FAQs when component mounts
+
   useEffect(() => {
     fetchFaqs();
   }, []);

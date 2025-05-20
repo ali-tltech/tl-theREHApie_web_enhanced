@@ -15,22 +15,19 @@ export const FooterThree = () => {
   } = useOrganizationStore();
 
   useEffect(() => {
-    // Fetch both social media links and organization details
+ 
     fetchSocials();
     fetchOrganizationDetails();
-  }, []);  // Remove dependencies to avoid potential infinite loops
+  }, []); 
 
-  // Check if we're loading either data source
+
   const isLoading = socialsLoading || orgLoading;
-  // Check if we have errors from either data source
+
   const hasError = socialsError || orgError;
 
-  // Function to render the correct social media icon based on platform name
   const renderSocialIcon = (platform) => {
-    // Convert platform name to lowercase for case-insensitive comparison
     const platformLower = platform.toLowerCase();
 
-    // Map platform names to their corresponding Font Awesome classes
     const socialIcons = {
       linkedin: "fab fa-linkedin",
       facebook: "fab fa-facebook-f",
@@ -39,12 +36,9 @@ export const FooterThree = () => {
       whatsapp: "fab fa-whatsapp"
     };
 
-    // Return the appropriate icon class or a default one if not found
     return socialIcons[platformLower];
   };
 
-  // Debug information
-  console.log("Organization Details:", organizationDetails);
   
   return (
     <footer>

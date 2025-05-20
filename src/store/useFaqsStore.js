@@ -14,8 +14,8 @@ const useFaqsStore = create((set) => ({
     try {
       const response = await faqsApi.getAllfaqs();
       
-      // Sort FAQs by their order field
-      const sortedFaqs = response.data.sort((a, b) => a.order - b.order);
+
+      const sortedFaqs = response.data.data.sort((a, b) => a.order - b.order);
       
       set({ 
         faqs: sortedFaqs,
@@ -32,6 +32,6 @@ const useFaqsStore = create((set) => ({
       return [];
     }
   }
-})); // <-- Added missing closing parenthesis and curly brace
+})); 
 
 export default useFaqsStore;
