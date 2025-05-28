@@ -18,6 +18,14 @@ export const blogById =async(id)=>{
   const response = await axiosInstance.get(`/blog/get-blog/${id}`)  
   return response
 }
+export const termsAndConditions =async()=>{  
+  const response = await axiosInstance.get(`/document/get-terms`)  
+  return response
+}
+export const privacyPolicy =async()=>{  
+  const response = await axiosInstance.get(`/document/get-privacy`)  
+  return response
+}
 export const SocialApi = {
     getAllSocials: () => axiosInstance.get("/social/get-social"),
   };
