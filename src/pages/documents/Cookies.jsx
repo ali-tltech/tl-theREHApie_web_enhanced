@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from '../../layouts/Layout';
 import HelmetReuse from '../../components/seo/HelmetComponent';
+import { seo } from '../../api/api';
 
 export const CookiePolicy = () => {
+  const [seoData, setSeodata] = useState(null)
+    useEffect(() => {
+      async function fetchSeo() {
+        try {
+          const response = await seo("cookie-policy")
+          setSeodata(response.data)
+  
+        } catch (error) {
+          console.error(error);
+  
+        }
+      }
+      fetchSeo()
+    }, [])
   return (
     <Layout breadcrumbTitle={"Cookie policy"} breadcrumbSubtitle={"Cookie policy"}>
-      <HelmetReuse 
-  title="Cookie Policy | theREHApie Consultants - How We Use Cookies" 
-  description="Understand how theREHApie Consultants uses cookies to enhance user experience, track site usage, and improve our services while respecting your privacy."
-  keywords="cookie policy, website cookies, user tracking, data collection, cookie usage, theREHApie cookies"
-/>
+       <HelmetReuse
+             title={seoData?.title}
+             description={seoData?.description}
+             keywords={seoData?.keywords}
+             twitterImage={seoData?.twitterImage}
+             twitterDescription={seoData?.twitterDescription}
+             twitterTitle={seoData?.twitterTitle}
+             ogImage={seoData?.ogImage}
+             ogDescription={seoData?.ogDescription}
+             ogTitle={seoData?.ogTitle}
+           />
 
 
     <div className="container-fluid py-5 bg-white">

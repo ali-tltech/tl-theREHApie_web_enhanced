@@ -26,6 +26,10 @@ export const privacyPolicy =async()=>{
   const response = await axiosInstance.get(`/document/get-privacy`)  
   return response
 }
+export const seo =async(pageTitle)=>{  
+  const response = await axiosInstance.get(`/seo/get-seo/${pageTitle}`)  
+  return response
+}
 export const SocialApi = {
     getAllSocials: () => axiosInstance.get("/social/get-social"),
   };

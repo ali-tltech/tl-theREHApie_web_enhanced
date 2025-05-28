@@ -1,31 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from '../../layouts/Layout';
 import HelmetReuse from '../../components/seo/HelmetComponent';
-import { privacyPolicy } from '../../api/api';
+import { privacyPolicy, seo } from '../../api/api';
 
 export const PrivacyPolicy = () => {
   const [privacyData, setPrivacyData] = useState(null);
-
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await privacyPolicy();
         setPrivacyData(response.data?.document || null);
-       
+        
       } catch (error) {
         console.error('Failed to fetch privacy policy:', error);
       }
     }
-
     fetchData();
   }, []);
+  const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("privacy-policy")
+        setSeodata(response.data)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
 
   return (
     <Layout breadcrumbTitle="Privacy Policy" breadcrumbSubtitle="Privacy Policy">
       <HelmetReuse
-        title="Privacy Policy | theREHApie Consultants - Data Protection & Security"
-        description="Learn how theREHApie Consultants collects, uses, and protects your personal data through our privacy policy."
-        keywords="privacy policy, data protection, personal information, theREHApie privacy, user data, GDPR"
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
       />
 
       <div className="container-fluid py-5 bg-white">

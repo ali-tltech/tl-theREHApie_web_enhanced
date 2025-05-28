@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { ContactMap } from "../../components/contact/ContactMap";
 import { ContactFour } from "../../components/contact/ContactFour";
 import HelmetReuse from "../../components/seo/HelmetComponent";
+import { seo } from "../../api/api";
 
 export const Contact = () => {
+  const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("contacts")
+        setSeodata(response.data)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
     <Layout breadcrumbTitle={"Get In Touch"} breadcrumbSubtitle={"Contact"}>
       <HelmetReuse

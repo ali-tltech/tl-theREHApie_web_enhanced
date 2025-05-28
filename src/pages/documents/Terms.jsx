@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from '../../layouts/Layout';
 import HelmetReuse from '../../components/seo/HelmetComponent';
-import { termsAndConditions } from '../../api/api';
+import { seo, termsAndConditions } from '../../api/api';
 
 export const Terms = () => {
   const [termsData, setTermsData] = useState(null);
@@ -18,13 +18,32 @@ export const Terms = () => {
 
     fetchData();
   }, []);
-  
+  const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("terms")
+        setSeodata(response.data)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
     <Layout breadcrumbTitle="Terms & conditions" breadcrumbSubtitle="Terms & conditions">
-      <HelmetReuse
-        title="Terms & Conditions | theREHApie Consultants - User Agreement"
-        description="Review the terms and conditions governing the use of theREHApie Consultants' website, services, and business interactions."
-        keywords="terms and conditions, user agreement, service terms, website policies, theREHApie terms"
+       <HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
       />
 
       <div className="container-fluid py-5 bg-white">
