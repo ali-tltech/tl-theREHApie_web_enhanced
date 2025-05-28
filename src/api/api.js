@@ -40,3 +40,6 @@ export const faqsApi = {
     getAllfaqs: () => axiosInstance.get("/faqs/get-faqs"),
   };
 
+export const TestimonialApi = {
+    getAllTestimonials: () => axiosInstance.get("/testimonial/getAll-testimonials"),
+  };
