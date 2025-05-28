@@ -12,7 +12,6 @@ const useSocialStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const response = await SocialApi.getAllSocials();
-console.log(response);
 
       set({ socials: response.data.data || [], loading: false });
     } catch (error) {
