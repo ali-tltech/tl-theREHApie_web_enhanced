@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "../swiper/SwiperRoot";
-import useTestimonialStore from "../../store/useTestimonialStore"; // Update path as needed
+import useTestimonialStore from "../../store/useTestimonialStore";
 
 export const TestimonialFour = () => {
   const { testimonials, loading, error, fetchTestimonials } = useTestimonialStore();
@@ -56,7 +56,6 @@ export const TestimonialFour = () => {
     );
   }
 
-  // No testimonials found
   if (!testimonials || testimonials.length === 0) {
     return (
       <div className="td-testimonial-area pt-100 pb-60">
@@ -112,40 +111,63 @@ export const TestimonialFour = () => {
                           <div className="row">
                             <div className="col-lg-3 col-md-3">
                               <div className="td-testimonial-avater">
-                                <div className="td-testimonial-avater-info">
-                                  <h5 className="td-testimonial-avater-title">
-                                    {testimonial.author}
-                                  </h5>
-                                  <span className="td-testimonial-avater-designation">
-                                    {testimonial.position}
-                                  </span>
-                                  <div className="td-testimonial-rating mt-2">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                      <i key={i} className="fa fa-star" style={{color: '#ffd700'}}></i>
-                                    ))}
+                                {testimonial.image && (
+                                  <div className="td-testimonial-avater-thumb mb-40">
+                                    <img src={testimonial.image} alt="testimonial" />
                                   </div>
-                                </div>
+                                )}
+
+                                {testimonial.author && testimonial.position && (
+                                  <div className="td-testimonial-avater-info">
+                                    <h5 className="td-testimonial-avater-title">
+                                      {testimonial.author}
+                                    </h5>
+                                    <span className="td-testimonial-avater-designation">
+                                      {testimonial.position}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                             <div className="col-lg-9 col-md-9">
                               <div className="td-testimonial-4-content">
                                 <span></span>
-                                <p style={{color:"black"}}>
+                                <p style={{ color: "black" }}>
                                   "{testimonial.text}"
                                 </p>
                               </div>
                             </div>
                           </div>
+
                           <div className="row align-items-center">
                             <div className="col-lg-8 col-md-8">
                               <div className="td-testimonial-4-bottom-content pt-30">
-                                {/* Add any additional content here if needed */}
                               </div>
                             </div>
 
                             <div className="col-lg-4 col-md-4">
                               <div className="td-testimonial-4-bottom-btn td-hero-4-btn d-flex justify-content-end pt-30">
-                                {/* Remove View More button since testimonials don't have links */}
+                                {testimonial.TestimonialUrl && (
+                                  <Link
+                                    to={testimonial.TestimonialUrl}
+                                    target="_blank"
+                                    className="td-btn td-btn-8 td-left-right"
+                                  >
+                                    View More
+                                    <span className="td-arrow-angle ml-10">
+                                      <svg
+                                        className="td-arrow-svg-top-right"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 10.00 10.00"
+                                      >
+                                        <path d="M1.018 10.009 0 8.991l7.569-7.582H1.723L1.737 0h8.26v8.274H8.574l.013-5847Z" />
+                                        <path d="M1.018 10.009 0 8.991l7.569-7.582H1.723L1.737 0h8.26v8.274H8.574l.013-5.847Z" />
+                                      </svg>
+                                    </span>
+                                  </Link>
+                                )}
                               </div>
                             </div>
                           </div>
