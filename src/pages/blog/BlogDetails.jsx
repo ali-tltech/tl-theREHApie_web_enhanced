@@ -19,9 +19,7 @@ export const BlogDetails = () => {
     async function fectchBlog(id) {
       try {
         const response = await blogById(id)
-        setBlog(response.data.data)
-        console.log(response.data.data,"resss");
-        
+        setBlog(response.data.data)        
       } catch (error) {
         console.error(error);
 
