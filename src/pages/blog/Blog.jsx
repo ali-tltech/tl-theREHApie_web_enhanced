@@ -9,7 +9,7 @@ import blogImage4 from "../../assets/img/blog/blogsidebar/blog-4.jpg";
 import blogImage5 from "../../assets/img/blog/blogsidebar/blog-5.jpg";
 import userImage1 from "../../assets/img/blog/blogsidebar/logo.png";
 import HelmetReuse from "../../components/seo/HelmetComponent";
-import { blog } from "../../api/api";
+import { blog, seo } from "../../api/api";
 
 export const Blog = () => {
   const blogs = [
@@ -194,7 +194,6 @@ export const Blog = () => {
       try {
         const response = await blog()
         setBlogData(response.data.data)
-        console.log(response.data.data,"l");
       } catch (error) {
         console.error(error);
         
@@ -205,14 +204,33 @@ export const Blog = () => {
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
+const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("blogs")
+        setSeodata(response.data)        
+      } catch (error) {
+        console.error(error);
 
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
     <Layout breadcrumbTitle={"Our Blogs"} breadcrumbSubtitle={"Blogs"}>
-      <HelmetReuse 
-  title="Blog | theREHApie Consultants - Insights on Rehab Consulting" 
-  description="Stay updated with the latest trends, insights, and expert opinions on rehabilitation consulting, healthcare business expansion, and distributor sourcing."
-  keywords="rehabilitation consulting blog, medical device market news, healthcare business insights, distributor sourcing tips, Middle East healthcare consulting"
-/>
+      <HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
+      />
+
 
       <BlogLayout>
         {/* Blogs Section */}

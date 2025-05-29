@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { HeroFive } from "../../components/hero_sections/HeroFive";
 import { ServiceAreaFour } from "../../components/service/ServiceAreaFour";
@@ -17,11 +17,36 @@ import { AboutTwo } from "../../components/about/AboutTwo";
 import { AboutFour } from "../../components/about/AboutFour";
 import HelmetReuse from "../../components/seo/HelmetComponent";
 import { TestimonialFour } from "../../components/testimonials/TestimonialFour";
+import { seo } from "../../api/api";
 
 export const HomeFive = () => {
+  const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("home")
+        setSeodata(response.data)
+        
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
     <Layout header={5} footer={5} >
-      <HelmetReuse title="theREHApie Consultants – Bridging Rehabilitation Innovation with the Middle East" />
+<HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
+      />
       {/* hero */}
       <HeroFive />
       {/* About */}

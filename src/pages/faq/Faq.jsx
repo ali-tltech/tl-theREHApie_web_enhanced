@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { Link } from "react-router-dom";
 import HelmetReuse from "../../components/seo/HelmetComponent";
 import useFaqsStore from "../../store/useFaqsStore";
+import { seo } from "../../api/api";
 
 export const Faq = () => {
 
@@ -18,14 +19,34 @@ console.log(faqs);
     { name: "Distributors", link: "/service-details/distributors" },
     { name: "Healthcare Providers", link: "/service-details/healthcareproviders" },
   ];
+const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("faqs")
+        setSeodata(response.data)
 
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
     <Layout breadcrumbTitle={"FAQs"} breadcrumbSubtitle={"FAQs"}>
-      <HelmetReuse 
-        title="FAQs | theREHApie Consultants - Your Questions Answered" 
-        description="Find answers to common questions about rehabilitation consulting, distributor sourcing, and business expansion in the Middle East."
-        keywords="rehabilitation consulting FAQs, medical device consulting questions, business expansion help, Middle East healthcare consulting"
+      <HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
       />
+
 
       <div className="td-faq-area pt-140 pb-80">
         <div className="container">

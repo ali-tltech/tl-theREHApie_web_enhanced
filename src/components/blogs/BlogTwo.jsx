@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "../swiper/SwiperRoot";
 import SwiperCore, { Autoplay } from "swiper"; // Import Autoplay module
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import img02 from "../../assets/img/blog/blog2/blog2.jpg";
 import img03 from "../../assets/img/blog/blog2/blog3.jpg";
 import img04 from "../../assets/img/blog/blog2/blog4.jpg";
 import img05 from "../../assets/img/blog/blog2/blog5.jpg";
+import { blog } from "../../api/api";
 
 // Initialize Swiper modules
 SwiperCore.use([Autoplay]);
@@ -54,49 +55,63 @@ export const BlogTwo = () => {
     },
   };
 
-  const blogPosts = [
-    {
-      imgSrc: img01,
-      author: "theREHApie Consultants",
-      date: "June 21, 2024",
-      href: "/blog-details/1",
-      title: "The Future of Rehabilitation",
-      tagline: " How Technology is Transforming Patient Recovery",
-    },
-    {
-      imgSrc: img02,
-      author: "theREHApie Consultants",
-      date: "March 5, 2024",
-      href: "/blog-details/2",
-      title: "Choosing the Right Rehabilitation Equipment",
-      tagline: " A Buyer's Guide for Healthcare Providers ",
-    },
-    {
-      imgSrc: img03,
-      author: "theREHApie Consultants",
-      date: "March 10, 2024",
-      href: "/blog-details/3",
-      title: "The Middle East: A Growing Market for Rehabilitation Technology",
-      tagline: "Unlocking Opportunities: Navigating the Middle East Rehab Tech Market ",
-    },
-    {
-      imgSrc: img04,
-      author: "theREHApie Consultants",
-      date: "March 15, 2024",
-      href: "/blog-details/4",
-      title: "How to Optimize Your Rehabilitation Product Distribution Strategy",
-      tagline: " Maximizing Reach, Enhancing Care: Optimize Your Rehab Product Distribution",
-    },
-    {
-      imgSrc: img05,
-      author: "theREHApie Consultants",
-      date: "March 20, 2024",
-      href: "/blog-details/5",
-      title: "Overcoming Challenges in the Rehabilitation Industry",
-      tagline: " A Manufacturer's Perspective ",
-    },
-  ];
+  // const blogPosts = [
+  //   {
+  //     imgSrc: img01,
+  //     author: "theREHApie Consultants",
+  //     date: "June 21, 2024",
+  //     href: "/blog-details/1",
+  //     title: "The Future of Rehabilitation",
+  //     tagline: " How Technology is Transforming Patient Recovery",
+  //   },
+  //   {
+  //     imgSrc: img02,
+  //     author: "theREHApie Consultants",
+  //     date: "March 5, 2024",
+  //     href: "/blog-details/2",
+  //     title: "Choosing the Right Rehabilitation Equipment",
+  //     tagline: " A Buyer's Guide for Healthcare Providers ",
+  //   },
+  //   {
+  //     imgSrc: img03,
+  //     author: "theREHApie Consultants",
+  //     date: "March 10, 2024",
+  //     href: "/blog-details/3",
+  //     title: "The Middle East: A Growing Market for Rehabilitation Technology",
+  //     tagline: "Unlocking Opportunities: Navigating the Middle East Rehab Tech Market ",
+  //   },
+  //   {
+  //     imgSrc: img04,
+  //     author: "theREHApie Consultants",
+  //     date: "March 15, 2024",
+  //     href: "/blog-details/4",
+  //     title: "How to Optimize Your Rehabilitation Product Distribution Strategy",
+  //     tagline: " Maximizing Reach, Enhancing Care: Optimize Your Rehab Product Distribution",
+  //   },
+  //   {
+  //     imgSrc: img05,
+  //     author: "theREHApie Consultants",
+  //     date: "March 20, 2024",
+  //     href: "/blog-details/5",
+  //     title: "Overcoming Challenges in the Rehabilitation Industry",
+  //     tagline: " A Manufacturer's Perspective ",
+  //   },
+  // ];
+  const [blogPosts, setBlogPosts] = useState([])
+  useEffect(() => {
+    async function fectchBlog() {
+      try {
+        const response = await blog()
+        setBlogPosts(response.data.data)
+        console.log(response.data.data);
 
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fectchBlog()
+  }, [])
   return (
     <div className="td-blog-area pt-135 pb-130 fix">
       <div className="container">
@@ -129,18 +144,22 @@ export const BlogTwo = () => {
                         >
                           <div className="td-blog-content">
                             <div className="td-blog-thumb mb-30">
-                              <img className="w-100" src={post.imgSrc} alt="blog" />
+                              <img className="w-100" src={post.image} alt="blog" />
                             </div>
                             <div className="td-blog-meta-2 mb-15">
                               <span className="td-blog-2-tag">{post.author}</span>
                               <span className="dvdr">/</span>
-                              <span>{post.date}</span>
+                              <span>{new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              })}</span>
                             </div>
                             <h2 className="td-blog-title td-blog-title-2">
-                              <Link to={post.href}>{post.title}</Link>
+                              <Link to={`/blog-details/${post.id}`}>{post.title}</Link>
                             </h2>
                             <p className="td-blog-tagline">
-                              <Link to={post.href}>{post.tagline}</Link>
+                              <Link to={`/blog-details/${post.id}`}>{post.excerpt}</Link>
                             </p>
                           </div>
                         </div>

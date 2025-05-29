@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { AboutFive } from "../../components/about/AboutFive";
 import { HistoryOne } from "../../components/history/HistoryOne";
@@ -8,13 +8,39 @@ import { ExperienceOne } from "../../components/experience/ExperienceOne";
 import AboutSection from "../../components/about/AboutSec";
 import AboutConclusion from "../../components/about/AboutConclusion";
 import HelmetReuse from "../../components/seo/HelmetComponent";
+import { seo } from "../../api/api";
 
 export const About = () => {
+
+  const [seoData, setSeodata] = useState(null)
+  useEffect(() => {
+    async function fetchSeo() {
+      try {
+        const response = await seo("about")
+        setSeodata(response.data)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchSeo()
+  }, [])
   return (
+
     <Layout breadcrumbTitle={"About Us"} breadcrumbSubtitle={"About Us"}>
-      <HelmetReuse title="About Us – theREHApie Consultants | Leading Rehab Consulting in the Middle East" 
-      description="With 15+ years of expertise in medical rehabilitation, we help businesses expand in the Middle East by offering strategic market entry, distributor partnerships, and regulatory guidance." 
-      keywords="about theREHApie Consultants, medical rehab consulting, healthcare business expansion, Middle East rehabilitation market, medical device experts"/>
+      <HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
+      />
+
 
       {/* about */}
       {/* <AboutFive /> */}
