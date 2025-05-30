@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../assets/img/logo/logo-new-service.png";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 export const ServiceAreaFour = () => {
+  const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+  useEffect(() => {
+    fetchOrganizationDetails();
+  }, [fetchOrganizationDetails]);
+ 
+  const logo = organizationDetails?.logo
+
+
   return (
     <div className="td-service-area fix">
       <div className="container">
@@ -142,7 +156,7 @@ export const ServiceAreaFour = () => {
                 <div className="col-lg-2">
                   <div className="td-service-4-logo td-video-4-logo">
                     <a className="td-pulse-border" href="/">
-                      <img src={logoImage} alt="logo" className="td-pulse-image" />
+                      <img src={logo} alt="logo" className="td-pulse-image" />
                     </a>
                   </div>
                 </div>

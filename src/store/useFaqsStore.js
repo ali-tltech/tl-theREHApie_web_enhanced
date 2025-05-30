@@ -1,11 +1,14 @@
 import { create } from 'zustand';
-import { faqsApi } from '../api/api';
+import { faqsApi, HomefaqsApi } from '../api/api';
 
 const useFaqsStore = create((set) => ({
   // State
   faqs: [],
+  homeFaqs: [],
   loading: false,
+  homeLoading: false,
   error: null,
+  homeError: null,
   
   // Actions
   fetchFaqs: async () => {
@@ -14,7 +17,6 @@ const useFaqsStore = create((set) => ({
     try {
       const response = await faqsApi.getAllfaqs();
       
-
       const sortedFaqs = response.data.data.sort((a, b) => a.order - b.order);
       
       set({ 
@@ -28,6 +30,30 @@ const useFaqsStore = create((set) => ({
       set({ 
         error: error.message || 'Failed to fetch FAQs',
         loading: false 
+      });
+      return [];
+    }
+  },
+
+  fetchHomeFaqs: async () => {
+    set({ homeLoading: true, homeError: null });
+    
+    try {
+      const response = await HomefaqsApi.getAllfaqs();
+      
+      const sortedHomeFaqs = response.data.data.sort((a, b) => a.order - b.order);
+      
+      set({ 
+        homeFaqs: sortedHomeFaqs,
+        homeLoading: false 
+      });
+      
+      return sortedHomeFaqs;
+    } catch (error) {
+      console.error('Error fetching Home FAQs:', error);
+      set({ 
+        homeError: error.message || 'Failed to fetch Home FAQs',
+        homeLoading: false 
       });
       return [];
     }

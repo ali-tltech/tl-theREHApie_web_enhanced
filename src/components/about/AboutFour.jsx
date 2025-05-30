@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import logo from "../../assets/img/testimonial/logo.png";
 import aboutA from "../../assets/img/about/about4/about-logo.png";
@@ -8,8 +8,23 @@ import logo from "../../assets/img/about/about4/about2.png";
 import aboutBg2 from "../../assets/img/about/about4/large2.jpg";
 import aboutBg from "../../assets/img/about/about4/large.jpg";
 import aboutPattern from "../../assets/img/about/about4/img5.png";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 export const AboutFour = () => {
+    const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+    useEffect(() => {
+    fetchOrganizationDetails();
+  }, [ fetchOrganizationDetails]);
+  const favicon = organizationDetails?.favicon;
+  
+  
+  
+
   return (
     <div className="td-about-area pt-140 pb-140">
       <div className="container">
@@ -22,14 +37,14 @@ export const AboutFour = () => {
             >
               <div className="td-about-4-thumb-rotate">
                 <div className="td-testimonial-qoute-thumb p-relative">
-                  <img
-                    className="td-testimonial-qoute"
-                    src={logo}
-                    alt="badge"
-                  />
+                    <img
+                      className="td-testimonial-qoute"
+                      src={logo}
+                      alt="badge"
+                    />
                   <img
                     className="td-testimonial-qoute-2"
-                    src={aboutA}
+                    src={favicon}
                     alt="badge"
                     width={50}
                   />

@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import thumb from "../../assets/img/about/about5/thumb5.jpg";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 const AboutConclusion = () => {
+  const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+  useEffect(() => {
+    fetchOrganizationDetails();
+  }, [fetchOrganizationDetails]);
+
+  const emailaddress = organizationDetails?.email;
+  const phone = organizationDetails?.phone;
+  const address = organizationDetails?.location
   return (
     <section
       className="container-fluid py-5 text-center position-relative d-flex align-items-center"
@@ -28,8 +42,8 @@ const AboutConclusion = () => {
             <div className="mt-4">
               <p className="mb-2">
                 📩 <strong>Let’s Connect:</strong>{" "}
-                <a href="mailto:info@therehapie.com" className="text-warning">
-                  info@therehapie.com
+                <a href={`mailto:${emailaddress}`} className="text-warning">
+                  {emailaddress}
                 </a>
               </p>
               <p>
