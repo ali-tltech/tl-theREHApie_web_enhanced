@@ -24,7 +24,7 @@ export const Service = () => {
     async function fetchServices() {
       try {
         const response = await getAllServices();
-        console.log(response)
+        console.log(response.data,"hello")
         setServices(response.data); // Adjust this depending on your API response structure
       } catch (error) {
         console.error("Service fetch error:", error);
@@ -50,7 +50,7 @@ export const Service = () => {
       />
 
       {/* services */}
-      <ServiceAreaSix services={services} /> {/* ✅ Pass data here */}
+      <ServiceAreaSix services={services.data} /> {/* ✅ Pass data here */}
 
       {/* text slider */}
       <TextSliderTwo />
