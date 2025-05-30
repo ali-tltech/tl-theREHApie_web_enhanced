@@ -5,10 +5,22 @@ import { Link } from "react-router-dom";
 import LOGO from "../../assets/img/logo/logo-small-new.png";
 // import LOGOTWO from "../../assets/img/logo/logo.jpg";
 import { NavImgGallery } from "./NavImgGallery";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 export const HeaderFive = () => {
   useHeaderSticky();
-
+const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+  useEffect(() => {
+    fetchOrganizationDetails();
+  }, [fetchOrganizationDetails]);
+  const emailaddress = organizationDetails?.email;
+  const phone = organizationDetails?.phone;
+  const logo = organizationDetails?.logo
 
 
   return (
@@ -23,10 +35,10 @@ export const HeaderFive = () => {
                   <div className="td-header-5-info-wrap">
                     <ul>
                       <li className="borders">
-                        <a href="mailto:info@therehapie.com" target="_blank" rel="noreferrer">
+                        <a href={`mailto:${emailaddress}`} target="_blank" rel="noreferrer">
                           <i className="fa-regular fa-envelope-open"></i>
                           <div className="td-header-5-info">
-                            <p>info@therehapie.com</p>
+                            <p>{emailaddress}</p>
                             <span>Drop us a line</span>
                           </div>
                         </a>
@@ -35,7 +47,7 @@ export const HeaderFive = () => {
                         <a href="tel:+971501361586" target="_blank" rel="noreferrer">
                           <i className="fa-regular fa-phone-flip"></i>
                           <div className="td-header-5-info">
-                            <p>+971 50 136 1586</p>
+                            <p>{phone}</p>
                             <span>Make a call</span>
                           </div>
                         </a>
@@ -46,7 +58,7 @@ export const HeaderFive = () => {
                 <div className="col-xl-3 col-lg-2 d-none d-lg-block">
                   <div className=" ml-40">
                     <a href="/">
-                      <img src={LOGO} alt="logo" width={500} />
+                      <img src={logo} alt="logo" width={500} />
                     </a>
                   </div>
                 </div>
@@ -89,7 +101,7 @@ export const HeaderFive = () => {
                         </div>
                         <div className="td-header-5-logo ml-0 d-lg-none">
                           <a href="/">
-                            <img src={LOGO} alt="logo" style={{ width: "100%", height: "auto" }} />
+                            <img src={logo} alt="logo" style={{ width: "100%", height: "auto" }} />
                           </a>
                         </div>
                       </div>

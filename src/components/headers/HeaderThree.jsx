@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHeaderLang, useHeaderSticky } from "./useHeader";
 import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
 import LOGO_WHITE from "../../assets/img/logo/logo-white.png";
-import LOGO from "../../assets/img/logo/logo-small-new.png";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 
 export const HeaderThree = () => {
   useHeaderLang();
   useHeaderSticky();
+  const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+  useEffect(() => {
+    fetchOrganizationDetails();
+  }, [fetchOrganizationDetails]);
+ 
+  const logo = organizationDetails?.logo
+
+
 
   return (
     <header>
@@ -42,7 +55,7 @@ export const HeaderThree = () => {
                     <div className="col-xl-1 col-lg-2 col-6" >
                       <div className="td-header-logo mr-90">
                         <Link to="/">
-                      <img src={LOGO} alt="logo" width={200} />
+                      <img src={logo} alt="logo" width={200} />
                         </Link>
                       </div>
                     </div>

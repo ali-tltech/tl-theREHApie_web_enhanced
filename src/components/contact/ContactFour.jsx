@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgImage from "../../assets/img/contact/contact4/bg.jpg";
 import bg2Image from "../../assets/img/contact/contact4/bg2.jpg";
 import { contact } from "../../api/api";
 import toast, { Toaster } from "react-hot-toast";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
-export const ContactFour = () => {
+export const  ContactFour = ({emailaddress,phone,address,orgLoading,orgError}) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [subject, setSubject] = useState("")
@@ -66,6 +67,7 @@ export const ContactFour = () => {
 
     }
   }
+  
   return (
     <div className="td-contact-area pt-140 pb-105">
       <div className="container">
@@ -89,41 +91,35 @@ export const ContactFour = () => {
                         <div className="td-contact-4-content">
                           <h3 className="td-contact-4-title mb-30">Dubai</h3>
                           <ul>
-                            <li>
-                              <a
-                                className="td-contact-4-email"
-                                href="#map"
-                              >
-                                DAFZ Head Office
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className="td-contact-4-email"
-                                href="#map"
-                              >
-                                Building 9W, 1st Floor
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className="td-contact-4-email"
-                                href="#map"
-                              >
-                                Dubai Airport Free Zone
-
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className="td-contact-4-email"
-                                href="#map"
-                              >
-                                Dubai, United Arab Emirates
-
-                              </a>
-                            </li>
+                            {orgLoading ? (
+                              <li>
+                                <a className="td-contact-4-email" href="#map">
+                                  Loading location information...
+                                </a>
+                              </li>
+                            ) : orgError ? (
+                              <li>
+                                <a className="td-contact-4-email" href="#map">
+                                  Error loading location information
+                                </a>
+                              </li>
+                            ) : address ? (
+                              address.split(',').map((line, index) => (
+                                <li key={index}>
+                                  <a className="td-contact-4-email" href="#map">
+                                    {line.trim()}
+                                  </a>
+                                </li>
+                              ))
+                            ) : (
+                              <li>
+                                <a className="td-contact-4-email" href="#map">
+                                  Location not available
+                                </a>
+                              </li>
+                            )}
                           </ul>
+
                         </div>
                       </div>
                     </div>
@@ -151,16 +147,16 @@ export const ContactFour = () => {
                                 rel="noreferrer"
 
                               >
-                                +971 50 136 1586
+                                {phone}
                               </a>
                             </li>
                             <li>
                               <a
                                 className="td-contact-4-addres"
-                                href="mailto:info@therehapie.com"
+                                href={`mailto:${emailaddress}`}
                                 target="_blank"
                               >
-                                info@therehapie.com
+                                {emailaddress}
                               </a>
                             </li>
                           </ul>

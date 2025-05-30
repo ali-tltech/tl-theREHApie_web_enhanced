@@ -26,15 +26,12 @@ export const FooterFive = () => {
   }, [fetchSocials, fetchOrganizationDetails]);
 
   // Get organization contact details
-  const email = organizationDetails?.email || "info@therehapie.com";
-  const phone = organizationDetails?.phone || "+971 50 136 1586";
-  const address = organizationDetails?.address
-   || {
-    line1: "DAFZ Head Office",
-    line2: "Building 9W, 1st Floor",
-    line3: "Dubai Airport Free Zone",
-    line4: "Dubai, United Arab Emirates"
-  };
+  const email = organizationDetails?.email;
+  const phone = organizationDetails?.phone;
+  const address = organizationDetails?.location
+  
+  
+
 
   // copyright Data
   const companyName = " TL TECHNOLOGIES PRIVATE LIMITED";
@@ -61,35 +58,28 @@ export const FooterFive = () => {
                         </a>
                       </li>
                       <li className="mb-20">
-                        <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+                        <a href={`tel:${phone?.replace(/\s/g, '')}`}>{phone}</a>
                       </li>
                       {orgLoading ? (
-                        <li>Loading address information...</li>
+                        <li>
+                          <a className="td-footer-3-link">Loading address information...</a>
+                        </li>
                       ) : orgError ? (
-                        <li>Error loading address information</li>
+                        <li>
+                          <a className="td-footer-3-link">Error loading address information</a>
+                        </li>
+                      ) : address ? (
+                        address.split(',').map((line, index) => (
+                          <li key={index}>
+                            <a className="td-footer-3-link">
+                              {line.trim()}
+                            </a>
+                          </li>
+                        ))
                       ) : (
-                        <>
-                          <li>
-                            <a target="_blank" className="td-footer-3-link">
-                              {address.line1 }
-                            </a>
-                          </li>
-                          <li>
-                            <a target="_blank" className="td-footer-3-link">
-                              {address.line2 }
-                            </a>
-                          </li>
-                          <li>
-                            <a target="_blank" className="td-footer-3-link">
-                              {address.line3 }
-                            </a>
-                          </li>
-                          <li>
-                            <a target="_blank" className="td-footer-3-link">
-                              {address.line4 }
-                            </a>
-                          </li>
-                        </>
+                        <li>
+                          <a className="td-footer-3-link">Address not available</a>
+                        </li>
                       )}
                     </ul>
                   </div>
@@ -120,7 +110,7 @@ export const FooterFive = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="col-lg-2 col-md-4 col-sm-6">
                 <div className="td-footer-5-widget mb-45 ml-50">
                   <h2 className="td-footer-5-widget-title mb-45">Link Pages</h2>
@@ -142,7 +132,7 @@ export const FooterFive = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="col-lg-2 col-md-4 col-sm-6">
                 <div className="td-footer-5-widget mb-45 ml-65">
                   <h2 className="td-footer-5-widget-title mb-45">Follow Us</h2>
@@ -175,7 +165,7 @@ export const FooterFive = () => {
             </div>
           </div>
         </div>
-        
+
         <div
           className="td-footer-5-bottom bg-position"
           style={{ backgroundImage: `url(${footerBg})` }}
@@ -192,7 +182,7 @@ export const FooterFive = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                    {companyName}
+                      {companyName}
                     </a>{" "}
                     All rights reserved.
                   </p>
