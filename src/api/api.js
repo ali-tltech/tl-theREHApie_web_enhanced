@@ -47,3 +47,13 @@ export const faqsApi = {
 export const TestimonialApi = {
     getAllTestimonials: () => axiosInstance.get("/testimonial/getAll-testimonials"),
   };
+
+
+export const getAllServices =async()=>{
+  const response = await axiosInstance.get("/service/get-all-services")  
+  return response
+}
+export const serviceByTitle =async(title)=>{  
+  const response = await axiosInstance.get(`/service/get-service-by-title/${title}`)  
+  return response
+}
