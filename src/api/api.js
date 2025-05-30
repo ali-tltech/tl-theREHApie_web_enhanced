@@ -41,7 +41,7 @@ export const OrganizationApi = {
 
 
 export const faqsApi = {
-    getAllfaqs: () => axiosInstance.get("/faqs/get-faqs"),
+    getAllfaqs: () => axiosInstance.get("/faqs/get-page-faqs"),
   };
 export const HomefaqsApi = {
     getAllfaqs: () => axiosInstance.get("/faqs/get-home-faqs"),
