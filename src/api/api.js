@@ -43,6 +43,9 @@ export const OrganizationApi = {
 export const faqsApi = {
     getAllfaqs: () => axiosInstance.get("/faqs/get-faqs"),
   };
+export const HomefaqsApi = {
+    getAllfaqs: () => axiosInstance.get("/faqs/get-home-faqs"),
+  };
 
 export const TestimonialApi = {
     getAllTestimonials: () => axiosInstance.get("/testimonial/getAll-testimonials"),
