@@ -2,12 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Layout } from "../../layouts/Layout";
 import { BlogLayout } from "../../layouts/BlogLayout";
 import { useEffect, useState } from "react";
-import blogImage1 from "../../assets/img/blog/blogsidebar/blog-1.jpg";
-import blogImage2 from "../../assets/img/blog/blogsidebar/blog-2.jpg";
-import blogImage3 from "../../assets/img/blog/blogsidebar/blog-3.jpg";
-import blogImage4 from "../../assets/img/blog/blogsidebar/blog-4.jpg";
-import blogImage5 from "../../assets/img/blog/blogsidebar/blog-5.jpg";
-import userImage1 from "../../assets/img/blog/blogsidebar/06.jpg";
+
 import { blogById } from "../../api/api";
 
 export const BlogDetails = () => {

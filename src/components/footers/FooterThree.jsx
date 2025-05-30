@@ -57,7 +57,7 @@ export const FooterThree = () => {
                 <div className="td-footer-3-top-content">
                   <p>
                     Looking for collaboration? Send an email to
-                    <a href={`mailto:${organizationDetails?.email || 'info@therehapie.com'}`}> {organizationDetails?.email || 'info@therehapie.com'}</a> for
+                    <a href={`mailto:${organizationDetails?.email}`}> {organizationDetails?.email || 'info@therehapie.com'}</a> for
                     valuable enquires and collaborations.
                   </p>
                 </div>

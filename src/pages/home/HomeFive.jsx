@@ -18,6 +18,7 @@ import { AboutFour } from "../../components/about/AboutFour";
 import HelmetReuse from "../../components/seo/HelmetComponent";
 import { TestimonialFour } from "../../components/testimonials/TestimonialFour";
 import { seo } from "../../api/api";
+import useOrganizationStore from "../../store/useOrganizationDetailsStore";
 
 export const HomeFive = () => {
   const [seoData, setSeodata] = useState(null)
@@ -26,7 +27,7 @@ export const HomeFive = () => {
       try {
         const response = await seo("home")
         setSeodata(response.data)
-        
+
       } catch (error) {
         console.error(error);
 
@@ -34,9 +35,22 @@ export const HomeFive = () => {
     }
     fetchSeo()
   }, [])
+  const {
+    organizationDetails,
+    loading: orgLoading,
+    error: orgError,
+    fetchOrganizationDetails
+  } = useOrganizationStore();
+  useEffect(() => {
+    fetchOrganizationDetails();
+  }, [fetchOrganizationDetails]);
+  const emailaddress = organizationDetails?.email;
+  const phone = organizationDetails?.phone;
+  const logo = organizationDetails?.logo
+
   return (
     <Layout header={5} footer={5} >
-<HelmetReuse
+      <HelmetReuse
         title={seoData?.title}
         description={seoData?.description}
         keywords={seoData?.keywords}
@@ -48,7 +62,7 @@ export const HomeFive = () => {
         ogTitle={seoData?.ogTitle}
       />
       {/* hero */}
-      <HeroFive />
+      <HeroFive emailaddress={emailaddress} logo={logo} phone={phone} />
       {/* About */}
       <AboutFour />
       {/* <AboutTwo/> */}
@@ -61,7 +75,7 @@ export const HomeFive = () => {
 
       {/* testimonial */}
       <TestimonialFour />
-      
+
       {/* faq */}
       <FaqTwo />
       {/* <FaqThree /> */}
