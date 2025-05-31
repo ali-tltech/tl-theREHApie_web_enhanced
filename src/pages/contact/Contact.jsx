@@ -11,7 +11,8 @@ export const Contact = () => {
   useEffect(() => {
     async function fetchSeo() {
       try {
-        const response = await seo("contacts")
+        const response = await seo("contact")
+        
         setSeodata(response.data)
 
       } catch (error) {
@@ -38,10 +39,17 @@ export const Contact = () => {
 
   return (
     <Layout breadcrumbTitle={"Get In Touch"} breadcrumbSubtitle={"Contact"}>
-      <HelmetReuse
-        title="Contact theREHApie Consultants | Expert Rehab Consulting in the Middle East"
-        description="Get in touch with theREHApie Consultants for expert rehabilitation consulting, distributor sourcing, and business expansion in the Middle East"
-        keywords="rehabilitation consulting, medical device market entry, distributor sourcing, Dubai business expansion, Middle East healthcare consulting" />
+     <HelmetReuse
+        title={seoData?.title}
+        description={seoData?.description}
+        keywords={seoData?.keywords}
+        twitterImage={seoData?.twitterImage}
+        twitterDescription={seoData?.twitterDescription}
+        twitterTitle={seoData?.twitterTitle}
+        ogImage={seoData?.ogImage}
+        ogDescription={seoData?.ogDescription}
+        ogTitle={seoData?.ogTitle}
+      />
 
       {/* map */}
       <ContactMap mapUrl={mapUrl} />

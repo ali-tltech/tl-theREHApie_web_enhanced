@@ -2,11 +2,14 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 
 const HelmetReuse = ({
-  title = "theREHApie Consultants – Bridging Rehabilitation Innovation with the Middle East",
-  description = "We help businesses expand in the rehab industry by offering strategic consulting, regulatory support, and distributor connections in the Middle East.",
+  title, 
+  // = "theREHApie Consultants – Bridging Rehabilitation Innovation with the Middle East",
+  description,
+  //  = "We help businesses expand in the rehab industry by offering strategic consulting, regulatory support, and distributor connections in the Middle East.",
   // url = "https://tl-therehapie-web-peach.vercel.app/",
   // image = "https://opengraph.b-cdn.net/production/images/3ce1332d-dc0a-4867-ad76-4f7625e71d1f.jpg?token=EWdiWv6KMf8fS-YmpXCiOfV7Zb_1iS84hgPjeHAMx3Q&height=802&width=1200&expires=33278379712",
-  keywords = "therehapie,rehabilitation solutions, rehab technology, physiotherapy equipment, medical device consulting, distributor partnerships, Dubai healthcare, Middle East rehab market",
+  keywords, 
+  // = "therehapie,rehabilitation solutions, rehab technology, physiotherapy equipment, medical device consulting, distributor partnerships, Dubai healthcare, Middle East rehab market",
   twitterImage,
   twitterDescription,
   twitterTitle,

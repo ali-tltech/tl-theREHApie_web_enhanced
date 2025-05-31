@@ -8,7 +8,6 @@ import { seo } from "../../api/api";
 export const Faq = () => {
 
   const { faqs, loading, error, fetchFaqs } = useFaqsStore();
-console.log(faqs);
 
   useEffect(() => {
     fetchFaqs();
