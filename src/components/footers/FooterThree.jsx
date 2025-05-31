@@ -49,7 +49,7 @@ export const FooterThree = () => {
               <div className="col-lg-6 mb-50">
                 <div className="td-footer-3-logo">
                   <Link to="/">
-                    <img src={LOGO_WHITE} alt="logo" width={200} />
+                    <img src={organizationDetails?.logo} alt="logo" width={200} />
                   </Link>
                 </div>
               </div>
