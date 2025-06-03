@@ -13,7 +13,6 @@ const useTestimonialStore = create((set) => ({
     
     try {
       const response = await TestimonialApi.getAllTestimonials();
-      console.log(response.data.data);
       set({ 
         testimonials: response.data.data,
         loading: false 
